@@ -1,9 +1,8 @@
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-#include <math.h>  // for INT_MAX
-
 #include <iostream>
+#include <limits>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -32,9 +31,9 @@ int main(int argc, char *argv[]) {
 
       ("turn-time", po::value<int>()->default_value(20),
           "Allowed time for each turn move, in seconds.")
-      ("search-depth", po::value<int>()->default_value(INT_MAX),
+      ("search-depth", po::value<int>()->default_value((std::numeric_limits<int>::max)()),
           "Maximum depth of the minimax search.")
-      ("beam-size", po::value<int>()->default_value(INT_MAX),
+      ("beam-size", po::value<int>()->default_value((std::numeric_limits<int>::max)()),
           "Number of states to search at each ply.")
 
       ("tzaar-coefficient", po::value<int>()->default_value(64),

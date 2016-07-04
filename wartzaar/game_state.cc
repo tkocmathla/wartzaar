@@ -1,8 +1,7 @@
 #include "wartzaar/game_state.h"
 
-#include <float.h> // for FLT_MAX
-
 #include <iostream>
+#include <limits>
 #include <sstream>
 
 namespace wtc = wartzaar::types::color;
@@ -12,7 +11,7 @@ namespace wartzaar {
 
 GameState::GameState(const GameBoard &board)
     : board_(board),
-      heuristic_value_(-FLT_MAX),
+      heuristic_value_(-std::numeric_limits<float>::max()),
       last_move_from_(0),
       last_move_to_(0) {
   Init();

@@ -1,6 +1,5 @@
 #include "wartzaar/tzaar_game.h"
 
-#include <float.h>  // for FLT_MAX
 #include <math.h>   // for log
 
 #include <iostream>
@@ -71,7 +70,7 @@ wm::MoveMessage TzaarGame::GetNextMove(bool capture_only) {
 
   // Execute the minimax search using depth-first iterative deepening (DFID)
   for (local_depth_ = 1; local_depth_ <= max_depth_ && clock() < turn_move_timeout_; local_depth_++) {
-    Minimax(current_state_, local_depth_, -FLT_MAX, FLT_MAX, player_color_, capture_only);
+      Minimax(current_state_, local_depth_, -float_max_, float_max_, player_color_, capture_only);
 
     std::cout << "TzaarGame::GetNextMove: Completed minimax search for ply = " << local_depth_
               << "; current best move = " << best_move_.ToString()
@@ -79,7 +78,7 @@ wm::MoveMessage TzaarGame::GetNextMove(bool capture_only) {
               << std::endl;
 
     // Stop searching for moves if a win state was found
-    if (best_move_.heuristic_value() == FLT_MAX)
+    if (best_move_.heuristic_value() == float_max_)
       break;
   }
 
@@ -125,7 +124,7 @@ float TzaarGame::Minimax(GameState &state, int depth, float alpha, float beta,
     successors[0].set_heuristic_value(EvaluateHeuristic(successors[0], color,
         capture_only));
 
-    if (best_move_.heuristic_value() == -FLT_MAX
+    if (best_move_.heuristic_value() == -float_max_
         || successors[0].heuristic_value() > best_move_.heuristic_value())
       best_move_ = successors[0];
   }
@@ -139,7 +138,7 @@ float TzaarGame::Minimax(GameState &state, int depth, float alpha, float beta,
 //      std::cout << "Evaluating child " << successors_passed + 1 << "/" << successors.size()
 //                << " (" << successor_itr->ToString() << ")" << std::endl;
 
-      float value = -FLT_MAX;
+      float value = -float_max_;
 
       // For the two moves of our turn, return +infinity directly for any
       // winning state.
@@ -154,7 +153,7 @@ float TzaarGame::Minimax(GameState &state, int depth, float alpha, float beta,
       if (depth >= local_depth_ - 1)
         value = EvaluateHeuristic(*successor_itr, color, capture_only);
 
-      if (value < FLT_MAX) {
+      if (value < float_max_) {
         if ((turn_count_ == 0 && depth == local_depth_) || !capture_only) {
   //        std::cout << "MAX player calling Minimax(" << successor_itr->ToString() << ", " << depth - 1 << ", opponent, capture_only)" << std::endl;
           value = Minimax(*successor_itr, depth - 1, alpha, beta, OppositeColor(color), true);
@@ -165,11 +164,11 @@ float TzaarGame::Minimax(GameState &state, int depth, float alpha, float beta,
         }
       }
 
-      if (value > alpha || (depth >= local_depth_ - 1 && value == FLT_MAX)) {
+      if (value > alpha || (depth >= local_depth_ - 1 && value == float_max_)) {
         alpha = value;
 
-        if (depth >= local_depth_ - 1 && value == FLT_MAX)
-          successor_itr->set_heuristic_value(FLT_MAX);
+        if (depth >= local_depth_ - 1 && value == float_max_)
+          successor_itr->set_heuristic_value(float_max_);
         else
           successor_itr->set_heuristic_value(EvaluateHeuristic(*successor_itr,
               color, capture_only));
@@ -197,7 +196,7 @@ float TzaarGame::Minimax(GameState &state, int depth, float alpha, float beta,
       // Otherwise, this player has sent both moves, and we need to call minimax
       // for the opposite player with capture_only = true.
       //
-      float value = -FLT_MAX;
+      float value = -float_max_;
       if (capture_only) {
 //        std::cout << "MIN player calling Minimax(" << successor_itr->ToString() << ", " << depth - 1 << ", self, !capture_only)" << std::endl;
         value = Minimax(*successor_itr, depth - 1, alpha, beta, color, false);
@@ -355,17 +354,17 @@ float TzaarGame::EvaluateHeuristic(GameState state, wtc::Color color,
   // Check for end-of-game scenarios
   if (color == wtc::kWhite) {
     if (black_tzaars < 1 || black_tzarras < 1 || black_totts < 1)
-      return FLT_MAX;
+      return float_max_;
     else if (white_tzaars < 1 || white_tzarras < 1 || white_totts < 1)
-      return -FLT_MAX;
+      return -float_max_;
     else
       hval += white_count - black_count;
   }
   else if (color == wtc::kBlack){
     if (white_tzaars < 1 || white_tzarras < 1 || white_totts < 1)
-      return FLT_MAX;
+      return float_max_;
     else if (black_tzaars < 1 || black_tzarras < 1 || black_totts < 1)
-      return -FLT_MAX;
+      return -float_max_;
     else
       hval += black_count - white_count;
   }
@@ -402,10 +401,10 @@ float TzaarGame::EvaluateHeuristic(GameState state, wtc::Color color,
 
   // Capturing moves available?
   int moves = CountSuccessors(state, color, true);
-  if (moves == 0) return -FLT_MAX;
+  if (moves == 0) return -float_max_;
 
   int oppmoves = CountSuccessors(state, OppositeColor(color), true);
-  if (oppmoves == 0) return FLT_MAX;
+  if (oppmoves == 0) return float_max_;
 
   return hval;
 }

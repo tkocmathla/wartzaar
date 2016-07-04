@@ -3,6 +3,7 @@
 
 #include <time.h>  // for clock, CLOCKS_PER_SEC
 
+#include <limits>
 #include <map>
 #include <queue>
 #include <vector>
@@ -71,6 +72,9 @@ class TzaarGame {
   ///
   float EvaluateHeuristic(GameState state, wartzaar::types::color::Color color,
       bool capture_only);
+
+  /// Maximum float value.
+  float float_max_ = (std::numeric_limits<float>::max)();
 
   /// Pre-computed values for ln(n - 0.9), from 1 through 15.
   float ln_[16];
