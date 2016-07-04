@@ -3,6 +3,6 @@
 namespace wartzaar { namespace messages {
 
 ControlMessage::ControlMessage(const std::string &message)
-    : GameMessage::GameMessage(message, GameMessage::kControl) {}
+    : GameMessage(message, GameMessage::kControl) {}
 
 }} // namespace wartzaar::messages

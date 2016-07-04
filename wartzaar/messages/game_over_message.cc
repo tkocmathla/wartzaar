@@ -3,7 +3,7 @@
 namespace wartzaar { namespace messages {
 
 GameOverMessage::GameOverMessage(const std::string &message)
-    : GameMessage::GameMessage(message, GameMessage::kYourPlayerNumber) {
+    : GameMessage(message, GameMessage::kYourPlayerNumber) {
   ParsePayload();
 }
 

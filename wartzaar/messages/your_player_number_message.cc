@@ -6,7 +6,7 @@ namespace wtpn = wartzaar::types::playernumber;
 namespace wartzaar { namespace messages {
 
 YourPlayerNumberMessage::YourPlayerNumberMessage(const std::string &message)
-    : GameMessage::GameMessage(message, GameMessage::kYourPlayerNumber) {
+    : GameMessage(message, GameMessage::kYourPlayerNumber) {
   ParsePayload();
 }
 

@@ -6,7 +6,7 @@
 namespace wartzaar { namespace messages {
 
 VersionMessage::VersionMessage(const std::string &message)
-    : GameMessage::GameMessage(message, GameMessage::kVersion) {
+    : GameMessage(message, GameMessage::kVersion) {
   ParsePayload();
 }
 

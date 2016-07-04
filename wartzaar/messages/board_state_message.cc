@@ -5,7 +5,7 @@
 namespace wartzaar { namespace messages {
 
 BoardStateMessage::BoardStateMessage(const std::string &message)
-    : GameMessage::GameMessage(message, GameMessage::kBoardState),
+    : GameMessage(message, GameMessage::kBoardState),
       board_state_(GameBoard()) {
   ParsePayload();
 }

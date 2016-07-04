@@ -5,7 +5,7 @@
 namespace wartzaar { namespace messages {
 
 MoveMessage::MoveMessage()
-    : GameMessage::GameMessage("Move{}", GameMessage::kMove),
+    : GameMessage("Move{}", GameMessage::kMove),
       pass_(true),
       from_column_(-1),
       from_row_(-1),
@@ -13,7 +13,7 @@ MoveMessage::MoveMessage()
       to_row_(-1) {}
 
 MoveMessage::MoveMessage(const std::string &message)
-    : GameMessage::GameMessage(message, GameMessage::kMove),
+    : GameMessage(message, GameMessage::kMove),
       pass_(false),
       from_column_(-1),
       from_row_(-1),
@@ -23,7 +23,7 @@ MoveMessage::MoveMessage(const std::string &message)
 }
 
 MoveMessage::MoveMessage(int from_column, int from_row, int to_column, int to_row)
-    : GameMessage::GameMessage("Move{}", GameMessage::kMove),
+    : GameMessage("Move{}", GameMessage::kMove),
       pass_(false),
       from_column_(from_column),
       from_row_(from_row),
