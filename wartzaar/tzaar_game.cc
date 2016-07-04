@@ -345,19 +345,12 @@ float TzaarGame::EvaluateHeuristic(GameState state, wtc::Color color,
   int black_totts   = state.GetPieceCount(wtc::kBlack, wtpt::kTott);
 
   // Calculate a combined weighted piece count value
-  float white_count = tzaar_coefficient_  * log(white_tzaars)
-                    + tzarra_coefficient_ * log(white_tzarras)
-                    + tott_coefficient_   * log(white_totts);
-  float black_count = tzaar_coefficient_  * log(black_tzaars)
-                    + tzarra_coefficient_ * log(black_tzarras)
-                    + tott_coefficient_   * log(black_totts);
-
-  //    white_count = tzaar_coefficient_  * ln_[white_tzaars]
-  //                + tzarra_coefficient_ * ln_[white_tzarras]
-  //                + tott_coefficient_   * ln_[white_totts];
-  //    black_count = tzaar_coefficient_  * ln_[black_tzaars]
-  //                + tzarra_coefficient_ * ln_[black_tzarras]
-  //                + tott_coefficient_   * ln_[black_totts];
+  float white_count = tzaar_coefficient_  * ln_[white_tzaars]
+                    + tzarra_coefficient_ * ln_[white_tzarras]
+                    + tott_coefficient_   * ln_[white_totts];
+  float black_count = tzaar_coefficient_  * ln_[black_tzaars]
+                    + tzarra_coefficient_ * ln_[black_tzarras]
+                    + tott_coefficient_   * ln_[black_totts];
 
   // Check for end-of-game scenarios
   if (color == wtc::kWhite) {
